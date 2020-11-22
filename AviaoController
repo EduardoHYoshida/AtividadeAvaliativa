@@ -1,0 +1,51 @@
+package AtividadeAvaliativa;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@RestController
+@RequestMapping("/api/avioes")
+public class AviaoController {
+	
+	@Autowired
+	AviaoRepository repo;
+	
+	@GetMapping
+	public List<Aviao> getAll(){
+		return repo.findAll();
+	}
+
+	@GetMapping("/{id}")
+	public Aviao getById(@PathVariable String id) {
+		return repo.findById(id).get();
+	}
+	
+	@PostMapping
+	public String PostAviao(@RequestBody Aviao novo) throws Exception  {
+		if (repo.findById(novo.getId()).isPresent()) {
+			throw new Exception("Registro Duplicado");
+		}
+		novo = repo.save(novo);
+        return novo.getId();
+	}
+	
+	@DeleteMapping("/{id}")
+	public void deletarAviao(@RequestBody Aviao aviao){
+		repo.delete(aviao);
+	}
+	
+	@PutMapping("/{id}")
+	public Aviao atualizarAviao(@RequestBody Aviao aviao) {
+		return repo.save(aviao);
+	}
+}
