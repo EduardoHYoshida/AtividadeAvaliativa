@@ -1,0 +1,53 @@
+package AtividadeAvaliativa;
+
+
+import javax.persistence.Entity;
+
+
+@Entity
+public class Aviao extends BaseEntity {
+	private String prefixo;	
+	private String modelo;
+	
+	public Aviao() {
+        super();
+    }
+	
+	public Aviao(String prefixo, String modelo) {
+		this();    
+        this.prefixo = prefixo;
+        this.modelo = modelo;
+    
+	}
+	
+	public String getPrefixo() {
+		return prefixo;
+	}
+
+	public void setPrefixo(String prefixo) {
+		this.prefixo = prefixo;
+	}
+
+	public void set(Aviao novo) {
+		
+		
+	}
+
+	public String getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+
+	 @Override
+	    public String toString() {
+	        return "{" +
+	            " id='" + getId() + "'" +
+	            " prefixo='" + getPrefixo() + "'" +
+	            ", modelo='" + getModelo() + "'" +
+	            "}";
+	    }
+
+}
